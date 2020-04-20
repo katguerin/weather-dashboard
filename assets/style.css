@@ -1,0 +1,7 @@
+section .card {
+    width: 19%;
+    border: 1px solid blue;
+    background-color: blue;
+    display: inline-block;
+    margin: 0px 4px;
+}

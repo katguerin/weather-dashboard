@@ -1,48 +1,51 @@
 var d = new Date();
 document.getElementById("current-date").innerHTML = d.toDateString();
- 
+
+var dayContainerEl = document.querySelector(".card")
 var citySearchFormEl = document.querySelector("#city-search-form")
 var citySearchEl = document.querySelector("#city-search-term");
 
 var searchCity = function(city) {
-   var currentApiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=fa8e42eb3573f0b76fce94969c4e58b4";
-   var forecastApiUrl = "https://api.openweathermap.org/data/2.5/forecast/daily?q=" + city + "&units=imperial&appid=fa8e42eb3573f0b76fce94969c4e58b4";
+   var currentApiUrl = "https://api.weatherbit.io/v2.0/current?city=" + city + "&units=I&key=3ed02ab5fa2d4251bf19702f55c6f764";
+   var forecastApiUrl = "https://api.weatherbit.io/v2.0/forecast/daily?city=" + city + "&days=5&units=I&key=3ed02ab5fa2d4251bf19702f55c6f764";
    
    fetch(currentApiUrl).then(function(response) {
     if (response.ok) {
       response.json().then(function(data) {
-        document.getElementById("city").textContent = data.name;
-        document.getElementById("temp").textContent = data.main.temp;
-        document.getElementById("humidity").textContent = data.main.humidity;
-        document.getElementById("wind-speed").textContent = data.wind.speed;
-        // document.getElementById("uv-index").textContent = data.?;
+          console.log(data);
+        document.getElementById("city").textContent = data.data[0].city_name;
+        document.getElementById("temp").textContent = data.data[0].temp;
+        document.getElementById("humidity").textContent = data.data[0].rh;
+        document.getElementById("wind-speed").textContent = data.data[0].wind_spd;
+        document.getElementById("uv-index").textContent = data.data[0].uv;
       });
     } else {
       alert("Error: " + response.statusText);
     }
     })
+
+    var fiveDayForecast = function(day) {
+
+    for (var i = 0; i < day.data.length; i++) {
+        console.log(day.data[i].temp);
+        var daynum = 'day' + (i+ 1);
+        document.getElementById(daynum + '-date').textContent = day.data[i].valid_date;
+        document.getElementById(daynum + '-temp').textContent = day.data[i].temp;
+        document.getElementById(daynum + '-humidity').textContent = day.data[i].rh;
+        document.getElementById(daynum + '-img').textContent = day.data[i].weather.icon;
+        }
+    }
+
     fetch(forecastApiUrl).then(function(response) {
         if (response.ok) {
           response.json().then(function(data) {
             console.log(data);
-            // document.getElementById("city").textContent = data.name;
-            // document.getElementById("temp").textContent = data.main.temp;
-            // document.getElementById("humidity").textContent = data.main.humidity;
-            // document.getElementById("wind-speed").textContent = data.wind.speed;
-            // document.getElementById("uv-index").textContent = data.?;
+           fiveDayForecast(data);
           });
         } else {
           alert("Error: " + response.statusText);
-        }
+            }
         })
-    
-    
-
-
-
-        // .catch(function(error) {
-        //     alert("Unable to get weather at this time. Please try again later!");
-        // })
 }
 
 
