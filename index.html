@@ -17,8 +17,12 @@
 <aside id="search">
     <div>
         <h2>Search for a city:</h2>
-        <input type="text" placeholder="Search..">
-    </div>
+        <form id="city-search-form" class="">
+            <label class="form-label" for="city-search-term">City</label>
+            <input name="city-search-term" id="city-search-term" type="text" autofocus="true" class="form-input" />
+            <button type="submit" class="btn">Search</button>
+          </form>
+        </div>
     <div class="search-history">
 
     </div>
@@ -27,13 +31,13 @@
 <main id="selected-city">
     <div>
         <h2 id="city"></h2>
-        <h2 id="date"></h2>
+        <h2 id="current-date"></h2>
         <img id="icon" src="" alt="">
     </div>  
-        <h3 id="temp"></h3>
-        <h3 id="humidity"></h3>
-        <h3 id="wind-speed"></h3>
-        <h3 id="uv-index"></h3>
+        <h3>Temperature: <span id="temp"></span> &#176; F</h3>
+        <h3>Humidity: <span id="humidity"></span>%</h3>
+        <h3>Wind Speed: <span id="wind-speed"></span> Mph</h3>
+        <!-- <h3>UV Index: <span id="uv-index"></span></h3> -->
 </main>
 
 <section id="forecast">
@@ -60,7 +64,7 @@
     </div>
 
 </section>
-
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
 <script src="./assets/script.js"></script>
 </body>
 
